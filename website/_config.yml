@@ -1,0 +1,129 @@
+# Jekyll Website Configuration for Hypersonic Reentry Research
+
+title: "Stochastic Simulation-Based Trajectory Optimization for Hypersonic Reentry Vehicles"
+description: "Advanced research in uncertainty quantification and trajectory optimization for hypersonic reentry vehicles with interactive visualizations and comprehensive analysis."
+
+url: "https://hypersonic-reentry-research.github.io"
+baseurl: ""
+
+# Author information
+author:
+  name: "Research Team"
+  email: "research@example.com"
+  bio: "Specialists in hypersonic vehicle dynamics and trajectory optimization"
+
+# Build settings
+theme: minima
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  methodology:
+    output: true
+    permalink: /:collection/:name/
+  results:
+    output: true
+    permalink: /:collection/:name/
+  implementation:
+    output: true
+    permalink: /:collection/:name/
+
+# Navigation
+navigation:
+  - title: "Home"
+    url: "/"
+  - title: "Methodology"
+    url: "/methodology/"
+  - title: "Results" 
+    url: "/results/"
+  - title: "Implementation"
+    url: "/implementation/"
+  - title: "Documentation"
+    url: "/documentation/"
+  - title: "About"
+    url: "/about/"
+
+# Social media and contact
+social:
+  github: "hypersonic-reentry-research"
+  twitter: "reentry_research"
+  linkedin: "hypersonic-research"
+  email: "research@example.com"
+
+# Google Analytics (optional)
+# google_analytics: UA-XXXXXXXX-X
+
+# MathJax configuration
+mathjax: true
+
+# Syntax highlighting
+highlighter: rouge
+
+# Pagination disabled - using simple navigation instead
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - LICENSE.txt
+
+# Include files
+include:
+  - _pages
+
+# Default layouts
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Research Team"
+  - scope:
+      path: "_methodology"
+      type: "methodology"
+    values:
+      layout: "methodology"
+  - scope:
+      path: "_results"
+      type: "results" 
+    values:
+      layout: "results"
+  - scope:
+      path: "_implementation"
+      type: "implementation"
+    values:
+      layout: "implementation"
+
+# Site metadata
+keywords: "hypersonic reentry, trajectory optimization, uncertainty quantification, monte carlo simulation, stochastic dynamics"
+category: "aerospace engineering"
+lang: "en"
+
+# Feature flags
+enable_interactive_plots: true
+enable_downloads: true
+enable_contact_form: true
+
+# Research project metadata
+research:
+  institution: "Advanced Aerospace Research Laboratory"
+  funding_agency: "National Science Foundation"
+  grant_number: "NSF-XXXX-2024"
+  start_date: "2024-01-01"
+  end_date: "2025-12-31"

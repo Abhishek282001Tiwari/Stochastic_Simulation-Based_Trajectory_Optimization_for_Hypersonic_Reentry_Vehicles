@@ -1,0 +1,303 @@
+<!-- Plot embedding include for consistent visualization display -->
+<!-- Usage: {% include plot_embed.html type="plotly" file="trajectory_3d.html" caption="3D trajectory visualization" %} -->
+
+{% assign plot_id = include.file | remove: '.html' | append: '_' | append: forloop.index %}
+{% assign plot_type = include.type | default: 'static' %}
+
+<div class="plot-container" id="{{ plot_id }}_container">
+  <div class="plot-header">
+    {% if include.title %}
+      <h3 class="plot-title">{{ include.title }}</h3>
+    {% endif %}
+    
+    <div class="plot-controls">
+      {% if plot_type == 'plotly' %}
+        <button class="plot-control-btn" onclick="toggleFullscreen('{{ plot_id }}')">
+          <span class="control-icon">⛶</span>
+          <span class="control-text">Fullscreen</span>
+        </button>
+        <button class="plot-control-btn" onclick="downloadPlot('{{ plot_id }}')">
+          <span class="control-icon">⬇</span>
+          <span class="control-text">Download</span>
+        </button>
+      {% endif %}
+      {% if include.data_file %}
+        <a href="/data/{{ include.data_file }}" class="plot-control-btn" download>
+          <span class="control-icon">📊</span>
+          <span class="control-text">Data</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="plot-content" id="{{ plot_id }}">
+    {% case plot_type %}
+      {% when 'plotly' %}
+        <div class="plotly-container">
+          <iframe src="/assets/plots/{{ include.file }}" 
+                  frameborder="0" 
+                  style="width: 100%; height: 600px;"
+                  allowfullscreen>
+          </iframe>
+        </div>
+      
+      {% when 'image' %}
+        <div class="image-container">
+          <img src="/assets/plots/{{ include.file }}" 
+               alt="{{ include.caption | default: 'Plot visualization' }}"
+               class="responsive-image">
+        </div>
+      
+      {% when 'matplotlib' %}
+        <div class="matplotlib-container">
+          <img src="/assets/plots/{{ include.file }}" 
+               alt="{{ include.caption | default: 'Matplotlib plot' }}"
+               class="responsive-image">
+        </div>
+      
+      {% else %}
+        <div class="generic-plot-container">
+          {% if include.file contains '.html' %}
+            <iframe src="/assets/plots/{{ include.file }}" 
+                    frameborder="0" 
+                    style="width: 100%; height: 600px;">
+            </iframe>
+          {% else %}
+            <img src="/assets/plots/{{ include.file }}" 
+                 alt="{{ include.caption | default: 'Plot visualization' }}"
+                 class="responsive-image">
+          {% endif %}
+        </div>
+    {% endcase %}
+  </div>
+  
+  {% if include.caption %}
+    <div class="plot-caption">
+      <p><strong>Figure {{ include.figure_number | default: forloop.index }}:</strong> {{ include.caption }}</p>
+    </div>
+  {% endif %}
+  
+  {% if include.description %}
+    <div class="plot-description">
+      <p>{{ include.description }}</p>
+    </div>
+  {% endif %}
+  
+  {% if include.data_source %}
+    <div class="plot-metadata">
+      <p class="data-source"><strong>Data Source:</strong> {{ include.data_source }}</p>
+      {% if include.generated_date %}
+        <p class="generated-date"><strong>Generated:</strong> {{ include.generated_date }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+<script>
+function toggleFullscreen(plotId) {
+  const container = document.getElementById(plotId);
+  const plotContainer = document.getElementById(plotId + '_container');
+  
+  if (!document.fullscreenElement) {
+    plotContainer.requestFullscreen().then(() => {
+      plotContainer.classList.add('fullscreen-active');
+    }).catch(err => {
+      console.log(`Error attempting to enable fullscreen: ${err.message}`);
+    });
+  } else {
+    document.exitFullscreen().then(() => {
+      plotContainer.classList.remove('fullscreen-active');
+    });
+  }
+}
+
+function downloadPlot(plotId) {
+  // For Plotly plots, trigger the download functionality
+  const iframe = document.querySelector(`#${plotId} iframe`);
+  if (iframe) {
+    // Send message to iframe to trigger download
+    iframe.contentWindow.postMessage('download', '*');
+  }
+}
+
+// Handle escape key for fullscreen exit
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+});
+</script>
+
+<style>
+.plot-container {
+  margin: 2rem 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.plot-container:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.plot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.plot-title {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.plot-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.plot-control-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.plot-control-btn:hover {
+  background: #e9ecef;
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.control-icon {
+  font-size: 1rem;
+}
+
+.plot-content {
+  position: relative;
+}
+
+.plotly-container,
+.matplotlib-container,
+.image-container,
+.generic-plot-container {
+  width: 100%;
+}
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.plotly-container iframe {
+  background: #ffffff;
+}
+
+.plot-caption {
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e5e5e5;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+.plot-description {
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  color: #5d6d7e;
+  line-height: 1.5;
+}
+
+.plot-metadata {
+  padding: 0.75rem 1.5rem;
+  background: #f1f2f6;
+  border-top: 1px solid #e5e5e5;
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.plot-metadata p {
+  margin: 0.25rem 0;
+}
+
+/* Fullscreen styles */
+.plot-container.fullscreen-active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  border-radius: 0;
+  border: none;
+}
+
+.fullscreen-active .plot-content {
+  height: calc(100vh - 120px);
+}
+
+.fullscreen-active .plotly-container iframe,
+.fullscreen-active .generic-plot-container iframe {
+  height: 100% !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .plot-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .plot-controls {
+    justify-content: center;
+  }
+  
+  .plot-control-btn {
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .control-text {
+    display: none;
+  }
+  
+  .plotly-container iframe,
+  .generic-plot-container iframe {
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .plot-container {
+    margin: 1rem -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .plot-header,
+  .plot-caption,
+  .plot-description,
+  .plot-metadata {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+</style>

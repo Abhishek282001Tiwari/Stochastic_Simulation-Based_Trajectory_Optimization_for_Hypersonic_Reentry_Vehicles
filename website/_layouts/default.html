@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  
+  <!-- Meta tags for SEO -->
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="keywords" content="{{ site.keywords }}">
+  <meta name="author" content="{{ site.author.name }}">
+  
+  <!-- Open Graph tags for social sharing -->
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="website">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- MathJax for mathematical equations -->
+  {% if site.mathjax %}
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  {% endif %}
+  
+  <!-- Plotly for interactive visualizations -->
+  {% if site.enable_interactive_plots %}
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  {% endif %}
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="site-branding">
+          <a href="{{ '/' | relative_url }}" class="site-title">
+            <i class="fas fa-rocket"></i>
+            <span>Hypersonic Reentry Research</span>
+          </a>
+          <p class="site-tagline">Advanced Trajectory Optimization & Uncertainty Quantification</p>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="main-navigation">
+          <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
+          <ul class="nav-menu">
+            {% for item in site.navigation %}
+              <li class="nav-item">
+                <a href="{{ item.url | relative_url }}" class="nav-link {% if page.url == item.url %}active{% endif %}">
+                  {{ item.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      {% if page.title and page.url != "/" %}
+        <div class="page-header">
+          <h1 class="page-title">{{ page.title }}</h1>
+          {% if page.description %}
+            <p class="page-description">{{ page.description }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      <div class="content">
+        {{ content }}
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Research Project</h3>
+          <p>{{ site.description }}</p>
+          <p><strong>Institution:</strong> {{ site.research.institution }}</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Navigation</h3>
+          <ul>
+            {% for item in site.navigation %}
+              <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact & Social</h3>
+          <div class="social-links">
+            {% if site.social.email %}
+              <a href="mailto:{{ site.social.email }}" class="social-link">
+                <i class="fas fa-envelope"></i>
+              </a>
+            {% endif %}
+            {% if site.social.github %}
+              <a href="https://github.com/{{ site.social.github }}" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+            {% endif %}
+            {% if site.social.twitter %}
+              <a href="https://twitter.com/{{ site.social.twitter }}" class="social-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            {% endif %}
+            {% if site.social.linkedin %}
+              <a href="https://linkedin.com/in/{{ site.social.linkedin }}" class="social-link" target="_blank">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="copyright">
+          <p>&copy; {{ site.time | date: "%Y" }} {{ site.author.name }}. Research funded by {{ site.research.funding_agency }}.</p>
+        </div>
+        
+        <div class="last-updated">
+          <p>Last updated: {{ site.time | date: "%B %d, %Y" }}</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  
+  <!-- Google Analytics (if configured) -->
+  {% if site.google_analytics %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.google_analytics }}');
+  </script>
+  {% endif %}
+</body>
+</html>

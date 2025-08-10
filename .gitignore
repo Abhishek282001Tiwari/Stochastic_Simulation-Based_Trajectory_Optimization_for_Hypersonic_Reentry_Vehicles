@@ -205,3 +205,145 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# ==========================================
+# HYPERSONIC REENTRY FRAMEWORK SPECIFIC
+# ==========================================
+
+# Large Data Files (use Git LFS for these)
+*.h5
+*.hdf5
+*.nc
+*.parquet
+results/data/*.h5
+results/data/*.hdf5
+data/trajectories/*.h5
+data/monte_carlo/*.h5
+
+# Scientific Computing Data
+*.npy
+*.npz
+*.mat
+*.pickle
+*.pkl
+
+# Simulation Results (Large Files)
+results/plots/*.png
+results/plots/*.pdf
+results/plots/*.svg
+results/plots/*.eps
+results/reports/*.pdf
+results/data/large_datasets/
+results/monte_carlo/raw_data/
+results/optimization/trajectories/
+
+# Keep structure but ignore large content
+results/comprehensive_study/
+results/large_scale_analysis/
+mc_raw_trajectories/
+sample_trajectories/
+uncertainty_samples/
+
+# Temporary Analysis Files
+analysis_temp/
+scratch/
+playground/
+experiments/
+sim_temp_*
+trajectory_temp_*
+optimization_temp_*
+
+# Performance and Profiling
+*.prof
+*.stats
+profile_results/
+optimization_histories/
+convergence_data/
+pareto_fronts/
+benchmark_results/
+performance_profiles/
+
+# Configuration Files with Secrets
+secrets.yaml
+private_config.yaml
+local_config.yaml
+user_config.yaml
+override_config.yaml
+
+# Visualization Cache
+plot_cache/
+figure_cache/
+interactive_plots/cache/
+
+# Website Development (Jekyll)
+website/.sass-cache/
+website/.jekyll-cache/
+website/.jekyll-metadata
+website/vendor/
+website/node_modules/
+_site/
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archive files
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.7z
+*.rar
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup Files
+*.bak
+*.backup
+.backup/
+
+# Framework specific virtual environments
+hypersonic_env/
+
+# Keep important empty directories and documentation structure
+!**/.gitkeep
+!docs/examples/
+!examples/
+!website/_includes/
+!website/_layouts/
+!website/_data/
+!**/README.md
+
+# Keep sample data files for testing
+!data/*/sample_*
+!results/*/example_*
+
+# Keep JSON configuration and results
+!results/*/*.json
+!data/*/*.json
+
+# Ignore but keep structure for key directories
+results/monte_carlo/*
+!results/monte_carlo/*.json
+!results/monte_carlo/*.md
+!results/monte_carlo/README.md
+
+data/trajectories/*
+!data/trajectories/*.csv
+!data/trajectories/*.json
+!data/trajectories/README.md

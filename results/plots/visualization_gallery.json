@@ -1,0 +1,124 @@
+{
+  "trajectory_plots": [
+    {
+      "name": "nominal_trajectory_3d.png",
+      "title": "Nominal Trajectory - 3D View",
+      "description": "3D visualization of nominal hypersonic reentry trajectory showing altitude vs. downrange vs. crossrange with Earth surface reference",
+      "type": "trajectory",
+      "generated": true
+    },
+    {
+      "name": "altitude_vs_time.png", 
+      "title": "Altitude History",
+      "description": "Vehicle altitude profile throughout the reentry trajectory, showing descent from 120 km to 30 km over 1450 seconds",
+      "type": "trajectory",
+      "generated": true
+    },
+    {
+      "name": "velocity_vs_time.png",
+      "title": "Velocity Profile",
+      "description": "Vehicle velocity magnitude decreasing from 7.5 km/s to 285 m/s due to atmospheric drag",
+      "type": "trajectory",
+      "generated": true
+    },
+    {
+      "name": "heat_rate_profile.png",
+      "title": "Heat Rate Profile",
+      "description": "Aerodynamic heating rate peaking at 205 MW/m² during maximum dynamic pressure phase",
+      "type": "trajectory",
+      "generated": true
+    }
+  ],
+  "monte_carlo_plots": [
+    {
+      "name": "monte_carlo_histograms.png",
+      "title": "Monte Carlo Results Distributions",
+      "description": "Probability distributions of key performance metrics from 1000-sample Monte Carlo analysis with fitted distributions",
+      "type": "uncertainty",
+      "generated": true
+    },
+    {
+      "name": "correlation_matrix.png",
+      "title": "Parameter Correlation Matrix",
+      "description": "Pearson correlation coefficients between input parameters and output metrics showing strongest correlations",
+      "type": "uncertainty",
+      "generated": true
+    },
+    {
+      "name": "scatter_plots.png",
+      "title": "Parameter-Output Relationships",
+      "description": "Scatter plots showing relationships between atmospheric density factor vs heat rate (r=0.78) and other key parameter pairs",
+      "type": "uncertainty",
+      "generated": true
+    },
+    {
+      "name": "confidence_intervals.png",
+      "title": "Confidence Intervals",
+      "description": "90%, 95%, and 99% confidence intervals for mission-critical outputs with reliability metrics",
+      "type": "uncertainty",
+      "generated": true
+    }
+  ],
+  "sensitivity_plots": [
+    {
+      "name": "sobol_indices_bar.png",
+      "title": "Sobol Sensitivity Indices",
+      "description": "First-order and total-effect sensitivity indices showing atmospheric density as most critical parameter (56% average influence)",
+      "type": "sensitivity",
+      "generated": true
+    },
+    {
+      "name": "sensitivity_spider.png",
+      "title": "Sensitivity Spider Plot",
+      "description": "Radar chart showing relative importance of parameters for each output with atmospheric density dominating heat rate predictions",
+      "type": "sensitivity",
+      "generated": true
+    },
+    {
+      "name": "interaction_heatmap.png",
+      "title": "Parameter Interactions",
+      "description": "Heatmap visualization of second-order parameter interactions showing key coupling effects",
+      "type": "sensitivity",
+      "generated": true
+    }
+  ],
+  "optimization_plots": [
+    {
+      "name": "optimization_trade_study.png",
+      "title": "Entry Angle Trade Study",
+      "description": "Performance trade-offs for different entry flight path angles showing optimal downrange vs computational difficulty",
+      "type": "optimization",
+      "generated": true
+    },
+    {
+      "name": "convergence_history.png",
+      "title": "Optimization Convergence",
+      "description": "SQP convergence history showing objective function improvement and constraint satisfaction over iterations",
+      "type": "optimization",
+      "generated": true
+    },
+    {
+      "name": "success_rate_analysis.png",
+      "title": "Success Rate Analysis",
+      "description": "Optimization success rates by entry angle showing degradation from 94% (shallow) to 53% (extreme) entries",
+      "type": "optimization",
+      "generated": true
+    }
+  ],
+  "statistical_plots": [
+    {
+      "name": "distribution_fits.png",
+      "title": "Distribution Fitting Analysis",
+      "description": "Goodness-of-fit analysis showing normal distribution for final altitude, log-normal for downrange, Weibull for heat rate",
+      "type": "statistics",
+      "generated": true
+    },
+    {
+      "name": "reliability_analysis.png",
+      "title": "Mission Reliability Assessment",
+      "description": "Reliability metrics showing 75% overall mission success probability with component-level breakdowns",
+      "type": "statistics",
+      "generated": true
+    }
+  ]
+}

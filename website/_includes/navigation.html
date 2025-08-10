@@ -1,0 +1,307 @@
+<!-- Main navigation include for the hypersonic reentry research website -->
+<nav class="main-navigation">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="brand-link">
+        <span class="brand-text">Hypersonic Reentry</span>
+        <span class="brand-subtitle">Research Framework</span>
+      </a>
+    </div>
+    
+    <div class="nav-toggle" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <div class="nav-menu" id="nav-menu">
+      {% for item in site.data.navigation.main %}
+        <div class="nav-item{% if item.subitems %} has-dropdown{% endif %}">
+          <a href="{{ item.url }}" class="nav-link{% if page.url == item.url %} active{% endif %}">
+            {{ item.title }}
+          </a>
+          
+          {% if item.subitems %}
+            <div class="nav-dropdown">
+              {% for subitem in item.subitems %}
+                <a href="{{ subitem.url }}" class="nav-dropdown-link">
+                  <span class="dropdown-title">{{ subitem.title }}</span>
+                  <span class="dropdown-description">{{ subitem.description }}</span>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile navigation overlay -->
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<script>
+// Mobile navigation toggle
+document.addEventListener('DOMContentLoaded', function() {
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const navOverlay = document.getElementById('nav-overlay');
+  
+  function toggleNav() {
+    navMenu.classList.toggle('is-active');
+    navToggle.classList.toggle('is-active');
+    navOverlay.classList.toggle('is-active');
+    document.body.classList.toggle('nav-open');
+  }
+  
+  navToggle.addEventListener('click', toggleNav);
+  navOverlay.addEventListener('click', toggleNav);
+  
+  // Close nav when clicking on links
+  const navLinks = document.querySelectorAll('.nav-link, .nav-dropdown-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        toggleNav();
+      }
+    });
+  });
+  
+  // Handle dropdown hover/click
+  const dropdownItems = document.querySelectorAll('.has-dropdown');
+  dropdownItems.forEach(item => {
+    const link = item.querySelector('.nav-link');
+    const dropdown = item.querySelector('.nav-dropdown');
+    
+    // Desktop hover
+    if (window.innerWidth > 768) {
+      item.addEventListener('mouseenter', function() {
+        dropdown.classList.add('is-active');
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        dropdown.classList.remove('is-active');
+      });
+    } else {
+      // Mobile click
+      link.addEventListener('click', function(e) {
+        if (link.getAttribute('href') === '#') {
+          e.preventDefault();
+          dropdown.classList.toggle('is-active');
+        }
+      });
+    }
+  });
+});
+</script>
+
+<style>
+.main-navigation {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.nav-brand {
+  flex-shrink: 0;
+}
+
+.brand-link {
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+.brand-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+}
+
+.brand-subtitle {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+  display: block;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  min-width: 280px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 200;
+}
+
+.nav-dropdown.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-link {
+  display: block;
+  padding: 1rem;
+  color: #2c3e50;
+  text-decoration: none;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background-color 0.2s ease;
+}
+
+.nav-dropdown-link:hover {
+  background-color: #f8f9fa;
+}
+
+.nav-dropdown-link:last-child {
+  border-bottom: none;
+}
+
+.dropdown-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.dropdown-description {
+  display: block;
+  font-size: 0.875rem;
+  color: #7f8c8d;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.nav-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #2c3e50;
+  transition: all 0.3s ease;
+}
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.nav-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 300px;
+    height: calc(100vh - 70px);
+    background: #ffffff;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 2rem 0;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    border-left: 1px solid #e5e5e5;
+  }
+  
+  .nav-menu.is-active {
+    right: 0;
+  }
+  
+  .nav-item {
+    padding: 0 2rem;
+  }
+  
+  .nav-link {
+    padding: 1rem 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  
+  .nav-dropdown {
+    position: static;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .nav-dropdown.is-active {
+    max-height: 300px;
+  }
+  
+  .nav-dropdown-link {
+    padding: 0.75rem 1rem;
+    margin-left: 1rem;
+  }
+}
+</style>

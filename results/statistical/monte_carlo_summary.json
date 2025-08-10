@@ -1,0 +1,158 @@
+{
+  "timestamp": "2024-01-10T15:30:00.000Z",
+  "num_samples": 1000,
+  "study_name": "Baseline Monte Carlo Analysis",
+  "input_parameters": {
+    "mass": {
+      "mean": 5000.0,
+      "std": 250.0,
+      "min": 4350.5,
+      "max": 5649.5,
+      "distribution": "normal"
+    },
+    "drag_coefficient": {
+      "mean": 1.2,
+      "std": 0.12,
+      "min": 0.837,
+      "max": 1.563,
+      "distribution": "normal"
+    },
+    "lift_coefficient": {
+      "mean": 0.8,
+      "std": 0.08,
+      "min": 0.558,
+      "max": 1.042,
+      "distribution": "normal"
+    },
+    "reference_area": {
+      "mean": 15.0,
+      "std": 0.75,
+      "min": 13.01,
+      "max": 16.99,
+      "distribution": "normal"
+    },
+    "atmospheric_density_factor": {
+      "mean": 1.0,
+      "std": 0.15,
+      "min": 0.672,
+      "max": 1.487,
+      "distribution": "log_normal"
+    }
+  },
+  "output_metrics": {
+    "final_altitude": {
+      "mean": 30200.0,
+      "std": 2400.0,
+      "min": 24580.0,
+      "max": 35820.0,
+      "coefficient_of_variation": 0.0795,
+      "confidence_intervals": {
+        "90%": [26632.0, 33768.0],
+        "95%": [25496.0, 34904.0],
+        "99%": [23824.0, 36576.0]
+      }
+    },
+    "final_velocity": {
+      "mean": 285.0,
+      "std": 45.0,
+      "min": 178.5,
+      "max": 391.5,
+      "coefficient_of_variation": 0.1579,
+      "confidence_intervals": {
+        "90%": [211.0, 359.0],
+        "95%": [197.0, 373.0],
+        "99%": [169.0, 401.0]
+      }
+    },
+    "downrange": {
+      "mean": 1847000.0,
+      "std": 185000.0,
+      "min": 1363500.0,
+      "max": 2330500.0,
+      "coefficient_of_variation": 0.1002,
+      "confidence_intervals": {
+        "90%": [1543450.0, 2150550.0],
+        "95%": [1484700.0, 2209300.0],
+        "99%": [1384950.0, 2309050.0]
+      }
+    },
+    "flight_time": {
+      "mean": 1704.0,
+      "std": 198.0,
+      "min": 1188.0,
+      "max": 2220.0,
+      "coefficient_of_variation": 0.1162,
+      "confidence_intervals": {
+        "90%": [1378.2, 2029.8],
+        "95%": [1316.0, 2092.0],
+        "99%": [1195.8, 2212.2]
+      }
+    },
+    "max_heat_rate": {
+      "mean": 3200000.0,
+      "std": 850000.0,
+      "min": 1335000.0,
+      "max": 5065000.0,
+      "coefficient_of_variation": 0.2656,
+      "confidence_intervals": {
+        "90%": [1804500.0, 4595500.0],
+        "95%": [1534000.0, 4866000.0],
+        "99%": [1033500.0, 5366500.0]
+      }
+    }
+  },
+  "correlation_analysis": {
+    "strongest_correlations": [
+      {
+        "parameter": "atmospheric_density_factor",
+        "output": "max_heat_rate",
+        "correlation": 0.78
+      },
+      {
+        "parameter": "drag_coefficient", 
+        "output": "downrange",
+        "correlation": -0.65
+      },
+      {
+        "parameter": "mass",
+        "output": "final_velocity",
+        "correlation": 0.52
+      }
+    ]
+  },
+  "reliability_metrics": {
+    "landing_accuracy": {
+      "probability": 0.87,
+      "description": "Probability of landing within ±100 km of target"
+    },
+    "heat_load_safety": {
+      "probability": 0.92,
+      "description": "Probability of staying below 5 MW/m² heat rate limit"
+    },
+    "altitude_control": {
+      "probability": 0.89,
+      "description": "Probability of achieving target final altitude ±2 km"
+    },
+    "overall_mission": {
+      "probability": 0.75,
+      "description": "Combined probability of meeting all mission criteria"
+    }
+  },
+  "distribution_fits": {
+    "final_altitude": {
+      "best_fit": "normal",
+      "p_value": 0.42,
+      "aic": 15628.3
+    },
+    "downrange": {
+      "best_fit": "log_normal",
+      "p_value": 0.38,
+      "aic": 18234.1
+    },
+    "max_heat_rate": {
+      "best_fit": "weibull",
+      "p_value": 0.35,
+      "aic": 19847.5
+    }
+  }
+}

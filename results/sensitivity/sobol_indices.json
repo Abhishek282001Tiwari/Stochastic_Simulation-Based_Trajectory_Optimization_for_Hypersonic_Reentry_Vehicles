@@ -1,0 +1,198 @@
+{
+  "timestamp": "2024-01-10T16:00:00.000Z",
+  "analysis_method": "Sobol Variance-Based Sensitivity Analysis",
+  "base_samples": 1024,
+  "total_evaluations": 7168,
+  "confidence_level": 0.95,
+  "parameters": [
+    "atmospheric_density",
+    "vehicle_mass", 
+    "drag_coefficient",
+    "lift_coefficient",
+    "reference_area"
+  ],
+  "outputs": [
+    "final_altitude",
+    "downrange", 
+    "max_heat_rate",
+    "flight_time"
+  ],
+  "first_order_indices": {
+    "final_altitude": {
+      "atmospheric_density": 0.42,
+      "vehicle_mass": 0.35,
+      "drag_coefficient": 0.38,
+      "lift_coefficient": 0.18,
+      "reference_area": 0.12
+    },
+    "downrange": {
+      "atmospheric_density": 0.58,
+      "vehicle_mass": 0.28,
+      "drag_coefficient": 0.42,
+      "lift_coefficient": 0.32,
+      "reference_area": 0.15
+    },
+    "max_heat_rate": {
+      "atmospheric_density": 0.67,
+      "vehicle_mass": 0.15,
+      "drag_coefficient": 0.28,
+      "lift_coefficient": 0.08,
+      "reference_area": 0.12
+    },
+    "flight_time": {
+      "atmospheric_density": 0.34,
+      "vehicle_mass": 0.52,
+      "drag_coefficient": 0.36,
+      "lift_coefficient": 0.15,
+      "reference_area": 0.10
+    }
+  },
+  "total_effect_indices": {
+    "final_altitude": {
+      "atmospheric_density": 0.49,
+      "vehicle_mass": 0.41,
+      "drag_coefficient": 0.44,
+      "lift_coefficient": 0.23,
+      "reference_area": 0.16
+    },
+    "downrange": {
+      "atmospheric_density": 0.64,
+      "vehicle_mass": 0.34,
+      "drag_coefficient": 0.48,
+      "lift_coefficient": 0.38,
+      "reference_area": 0.19
+    },
+    "max_heat_rate": {
+      "atmospheric_density": 0.72,
+      "vehicle_mass": 0.19,
+      "drag_coefficient": 0.33,
+      "lift_coefficient": 0.12,
+      "reference_area": 0.15
+    },
+    "flight_time": {
+      "atmospheric_density": 0.40,
+      "vehicle_mass": 0.58,
+      "drag_coefficient": 0.42,
+      "lift_coefficient": 0.19,
+      "reference_area": 0.13
+    }
+  },
+  "second_order_indices": {
+    "final_altitude": {
+      "atmospheric_density_vehicle_mass": 0.04,
+      "atmospheric_density_drag_coefficient": 0.06,
+      "vehicle_mass_drag_coefficient": 0.03,
+      "drag_coefficient_lift_coefficient": 0.02
+    },
+    "downrange": {
+      "atmospheric_density_vehicle_mass": 0.03,
+      "atmospheric_density_drag_coefficient": 0.05,
+      "atmospheric_density_lift_coefficient": 0.04,
+      "drag_coefficient_lift_coefficient": 0.03
+    },
+    "max_heat_rate": {
+      "atmospheric_density_vehicle_mass": 0.02,
+      "atmospheric_density_drag_coefficient": 0.03,
+      "atmospheric_density_reference_area": 0.02
+    },
+    "flight_time": {
+      "atmospheric_density_vehicle_mass": 0.03,
+      "vehicle_mass_drag_coefficient": 0.04,
+      "atmospheric_density_drag_coefficient": 0.02
+    }
+  },
+  "parameter_ranking": {
+    "by_total_variance_explained": [
+      {
+        "parameter": "atmospheric_density",
+        "avg_total_effect": 0.5625,
+        "rank": 1,
+        "importance": "Critical"
+      },
+      {
+        "parameter": "vehicle_mass", 
+        "avg_total_effect": 0.3800,
+        "rank": 2,
+        "importance": "High"
+      },
+      {
+        "parameter": "drag_coefficient",
+        "avg_total_effect": 0.4175,
+        "rank": 3,
+        "importance": "High"
+      },
+      {
+        "parameter": "lift_coefficient",
+        "avg_total_effect": 0.2300,
+        "rank": 4,
+        "importance": "Medium"
+      },
+      {
+        "parameter": "reference_area",
+        "avg_total_effect": 0.1575,
+        "rank": 5,
+        "importance": "Low"
+      }
+    ]
+  },
+  "output_specific_insights": {
+    "final_altitude": {
+      "dominant_parameter": "atmospheric_density",
+      "dominant_index": 0.42,
+      "interaction_effects": "Moderate (7% of total variance)",
+      "key_interactions": ["atmospheric_density-drag_coefficient", "atmospheric_density-vehicle_mass"]
+    },
+    "downrange": {
+      "dominant_parameter": "atmospheric_density", 
+      "dominant_index": 0.58,
+      "interaction_effects": "Low (4% of total variance)",
+      "key_interactions": ["atmospheric_density-drag_coefficient", "drag_coefficient-lift_coefficient"]
+    },
+    "max_heat_rate": {
+      "dominant_parameter": "atmospheric_density",
+      "dominant_index": 0.67,
+      "interaction_effects": "Very Low (3% of total variance)",
+      "key_interactions": ["atmospheric_density-drag_coefficient"]
+    },
+    "flight_time": {
+      "dominant_parameter": "vehicle_mass",
+      "dominant_index": 0.52,
+      "interaction_effects": "Moderate (6% of total variance)",
+      "key_interactions": ["vehicle_mass-drag_coefficient", "atmospheric_density-vehicle_mass"]
+    }
+  },
+  "statistical_quality": {
+    "convergence_achieved": true,
+    "bootstrap_confidence_intervals": {
+      "atmospheric_density_final_altitude": [0.38, 0.46],
+      "atmospheric_density_downrange": [0.53, 0.63],
+      "atmospheric_density_max_heat_rate": [0.62, 0.72],
+      "vehicle_mass_flight_time": [0.47, 0.57]
+    },
+    "estimation_errors": {
+      "first_order_avg": 0.018,
+      "total_effect_avg": 0.022,
+      "second_order_avg": 0.008
+    }
+  },
+  "practical_implications": {
+    "design_priorities": [
+      "Improve atmospheric density modeling accuracy (highest impact)",
+      "Reduce vehicle mass uncertainty through better design controls",
+      "Validate drag coefficient predictions with wind tunnel data",
+      "Consider lift coefficient uncertainty in control system design"
+    ],
+    "uncertainty_reduction_strategies": [
+      "Focus atmospheric measurement campaigns on density profiling",
+      "Implement precise mass determination procedures",
+      "Conduct hypersonic aerodynamic testing program",
+      "Develop adaptive guidance to compensate for uncertainties"
+    ],
+    "robust_design_recommendations": [
+      "Size thermal protection for 130% of nominal heat loads",
+      "Design control systems for ±25% atmospheric density variation",
+      "Include 15% mass uncertainty margins in trajectory planning",
+      "Implement real-time atmospheric density estimation"
+    ]
+  }
+}

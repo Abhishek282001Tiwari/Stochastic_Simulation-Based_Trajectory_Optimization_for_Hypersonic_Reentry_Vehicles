@@ -1,0 +1,87 @@
+# Navigation structure for the hypersonic reentry research website
+
+main:
+  - title: "Home"
+    url: "/"
+    description: "Project overview and key features"
+  
+  - title: "Methodology"
+    url: "/methodology/"
+    description: "Mathematical formulation and computational methods"
+  
+  - title: "Results"
+    url: "/results/"
+    description: "Comprehensive analysis results and findings"
+  
+  - title: "Documentation"
+    url: "#"
+    description: "Framework documentation and guides"
+    subitems:
+      - title: "Installation Guide"
+        url: "/INSTALL/"
+        description: "Complete installation instructions"
+      - title: "User Guide"  
+        url: "/USER_GUIDE/"
+        description: "Comprehensive usage documentation"
+      - title: "API Reference"
+        url: "/api/"
+        description: "Detailed API documentation"
+  
+  - title: "Examples"
+    url: "#"
+    description: "Code examples and tutorials"
+    subitems:
+      - title: "Quick Start"
+        url: "/examples/quick-start/"
+        description: "5-minute example to get started"
+      - title: "Monte Carlo Analysis"
+        url: "/examples/monte-carlo/"
+        description: "Uncertainty quantification example"
+      - title: "Trajectory Optimization"
+        url: "/examples/optimization/"
+        description: "Optimization workflow example"
+  
+  - title: "Downloads"
+    url: "/downloads/"
+    description: "Datasets, results, and source code"
+
+footer:
+  - title: "Framework"
+    links:
+      - title: "GitHub Repository"
+        url: "https://github.com/hypersonic-reentry/framework"
+      - title: "Installation"
+        url: "/INSTALL/"
+      - title: "User Guide"
+        url: "/USER_GUIDE/"
+  
+  - title: "Research"
+    links:
+      - title: "Methodology"
+        url: "/methodology/"
+      - title: "Results"
+        url: "/results/"
+      - title: "Publications"
+        url: "/publications/"
+  
+  - title: "Community"
+    links:
+      - title: "Issues"
+        url: "https://github.com/hypersonic-reentry/framework/issues"
+      - title: "Discussions"
+        url: "https://github.com/hypersonic-reentry/framework/discussions"
+      - title: "Contributing"
+        url: "/contributing/"
+
+social:
+  - title: "GitHub"
+    url: "https://github.com/hypersonic-reentry/framework"
+    icon: "github"
+  
+  - title: "Research Group"
+    url: "https://aerospace.university.edu/hypersonics"
+    icon: "university"
+  
+  - title: "Contact"
+    url: "mailto:research@university.edu"
+    icon: "email"
